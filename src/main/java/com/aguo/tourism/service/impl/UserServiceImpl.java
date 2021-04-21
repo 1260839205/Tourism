@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService {
     public boolean loginUser(String username, String password) {
         User user = ud.loginUser(username, password);
         if (user != null){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }

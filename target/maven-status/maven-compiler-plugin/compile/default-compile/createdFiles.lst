@@ -1,2 +1,8 @@
+com/aguo/tourism/dao/impl/UserDaoImpl.class
+com/aguo/tourism/dao/UserDao.class
+com/aguo/tourism/utils/JdbcUtils.class
 com/aguo/tourism/web/servlet/LoginServlet.class
 com/aguo/tourism/web/servlet/CheckCodeServlet.class
+com/aguo/tourism/domain/User.class
+com/aguo/tourism/service/impl/UserServiceImpl.class
+com/aguo/tourism/service/UserService.class

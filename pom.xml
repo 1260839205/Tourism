@@ -73,6 +73,13 @@
       <version>5.3.6</version>
     </dependency>
 
+    <!-- jsp -->
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>javax.servlet.jsp-api</artifactId>
+      <version>2.2.1</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl -->
     <dependency>
       <groupId>javax.servlet.jsp.jstl</groupId>
@@ -144,7 +151,6 @@
       <artifactId>javax.mail</artifactId>
       <version>1.6.2</version>
     </dependency>
-
     <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -168,6 +174,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
         <configuration>
           <source>11</source>
           <target>11</target>
@@ -176,5 +183,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

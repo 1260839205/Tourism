@@ -1,10 +1,18 @@
 package com.aguo.tourism.web.servlet;
 
+import com.aguo.tourism.service.UserService;
+import com.aguo.tourism.service.impl.UserServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author Code Fruit
@@ -14,10 +22,46 @@ import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //设置接收参数的编码
+        request.setCharacterEncoding("utf-8");
+        UserService us;
+        Map<String,Object> map = new HashMap<String,Object>();
+        ObjectMapper om = new ObjectMapper();
+        boolean flag = false , err = false , login = true;
 
+        //获取用户登陆的账号密码以及验证码
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String check = request.getParameter("check");
+        String checkCode = (String)request.getSession().getAttribute("CHECKCODE_SERVER");
+        request.removeAttribute("CHECKCODE_SERVER");
+        System.out.println(check+""+checkCode);
+        response.setContentType("application/json;charset=utf-8");
+
+        if (checkCode != null && !"".equals(check) && check != null && checkCode.equalsIgnoreCase(check)){
+            if (username != null && password != null && !"".equals(username) && !"".equals(password)){
+                us = new UserServiceImpl();
+                login = us.loginUser(username, password);
+            }else {
+                flag = false;
+            }
+        }else {
+            err = true;
+            flag = false;
+        }
+
+        if (err) {
+            map.put("errorMsg","验证码输入错误！");
+        }else if (login){
+            map.put("errorMsg","账号或密码错误！");
+        }else {
+            flag = true;
+        }
+        map.put("flag",flag);
+        om.writeValue(response.getWriter(),map);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request,response);
     }
 }
