@@ -8,5 +8,12 @@ import com.aguo.tourism.domain.User;
  * @Date 2021/4/20 下午9:14
  */
 public interface UserDao {
-    public User loginUser();
+
+    /**
+     * 用户登陆
+     * @param username
+     * @param password
+     * @return
+     */
+    public User loginUser(String username,String password);
 }

@@ -2,6 +2,10 @@ package com.aguo.tourism.dao.impl;
 
 import com.aguo.tourism.dao.UserDao;
 import com.aguo.tourism.domain.User;
+import com.aguo.tourism.utils.JdbcUtils;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * @Author Code Fruit
@@ -9,8 +13,28 @@ import com.aguo.tourism.domain.User;
  * @Date 2021/4/20 下午9:15
  */
 public class UserDaoImpl implements UserDao {
+
+    private JdbcTemplate template = new JdbcTemplate(JdbcUtils.getDataSource());
+
+
+    /**
+     * 登陆方法实现
+     * @param username
+     * @param password
+     * @return
+     */
     @Override
-    public User loginUser() {
+    public User loginUser(String username, String password) {
+        //1.SQL语句
+        String sql = "select * from tab_user where username = ? and password = ? ";
+
+        try {
+            //调用方法查询数据库
+            User user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), username, password);
+            return user;
+        }catch (EmptyResultDataAccessException e){
+            e.printStackTrace();
+        }
         return null;
     }
 }

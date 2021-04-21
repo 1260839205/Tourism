@@ -112,4 +112,20 @@ public class User {
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", sex='" + sex + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", status='" + status + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }
