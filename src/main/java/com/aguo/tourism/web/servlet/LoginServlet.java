@@ -1,5 +1,6 @@
 package com.aguo.tourism.web.servlet;
 
+import com.aguo.tourism.domain.User;
 import com.aguo.tourism.service.UserService;
 import com.aguo.tourism.service.impl.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +27,7 @@ public class LoginServlet extends HttpServlet {
         UserService us;
         Map<String,Object> map = new HashMap<String,Object>();
         ObjectMapper om = new ObjectMapper();
+        User user;
         boolean flag = false , err = false , login = true;
 
         //获取用户登陆的账号密码以及验证码
@@ -35,13 +36,15 @@ public class LoginServlet extends HttpServlet {
         String check = request.getParameter("check");
         String checkCode = (String)request.getSession().getAttribute("CHECKCODE_SERVER");
         request.removeAttribute("CHECKCODE_SERVER");
-        System.out.println(check+""+checkCode);
         response.setContentType("application/json;charset=utf-8");
 
         if (checkCode != null && !"".equals(check) && check != null && checkCode.equalsIgnoreCase(check)){
             if (username != null && password != null && !"".equals(username) && !"".equals(password)){
                 us = new UserServiceImpl();
-                login = us.loginUser(username, password);
+                user = us.loginUser(username, password);
+                if (user != null){
+                    login = false;
+                }
             }else {
                 flag = false;
             }

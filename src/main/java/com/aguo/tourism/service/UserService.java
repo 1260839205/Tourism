@@ -1,5 +1,7 @@
 package com.aguo.tourism.service;
 
+import com.aguo.tourism.domain.User;
+
 /**
  * @Author Code Fruit
  * @Email 1260839205@qq.com
@@ -7,5 +9,5 @@ package com.aguo.tourism.service;
  */
 public interface UserService {
 
-    public boolean loginUser(String username,String password);
+    public User loginUser(String username, String password);
 }

@@ -19,101 +19,92 @@
 					6.出生日期：非空
 					7.验证码：非空
 			 */
+			/**
+			 * 提交表单时的校验
+			 */
+			$(function () {
+				$("#registerForm").submit(function () {
+					return checkUsername() && checkPassword() && checkEmail() && checkName();
+				});
 
-			//校验用户名
-			//单词字符，长度8到20位
+				$("#username").blur(checkUsername);
+				$("#password").blur(checkPassword);
+				$("#email").blur(checkEmail);
+				$("#name").blur(checkName);
+			});
+			/**
+			 * 用户名的校验
+			 */
 			function checkUsername() {
-                //1.获取用户名值
-				var username = $("#username").val();
-				//2.定义正则
-				var reg_username = /^\w{8,20}$/;
-				
-				//3.判断，给出提示信息
-			    var flag = reg_username.test(username);
-			    if(flag){
-			        //用户名合法
-                    $("#username").css("border","");
-				}else{
-			        //用户名非法,加一个红色边框
-					$("#username").css("border","1px solid red");
-				}
-			    
-                return flag;
-            }
+				//获取用户名
+				var username = $("#username");
 
-            //校验密码
-            function checkPassword() {
-                //1.获取密码值
-                var password = $("#password").val();
-                //2.定义正则
-                var reg_password = /^\w{8,20}$/;
+				//定义正则表达式，校验用户名
+				var check_username = /\w{6,18}/;
 
-                //3.判断，给出提示信息
-                var flag = reg_password.test(password);
-                if(flag){
-                    //密码合法
-                    $("#password").css("border","");
-                }else{
-                    //密码非法,加一个红色边框
-                    $("#password").css("border","1px solid red");
-                }
-
-                return flag;
-            }
-
-            //校验邮箱
-			function checkEmail(){
-			    //1.获取邮箱
-				var email = $("#email").val();
-				//2.定义正则		itcast@163.com
-				var reg_email = /^\w+@\w+\.\w+$/;
-
-				//3.判断
-				var flag = reg_email.test(email);
-				if(flag){
-                    $("#email").css("border","");
-				}else{
-                    $("#email").css("border","1px solid red");
-				}
-
+				//判断是否成功
+				var flag = check_username.test(username.val());
+				checkFlag(username,flag);
 				return flag;
 			}
 
-			$(function () {
-                //当表单提交时，调用所有的校验方法
-				$("#registerForm").submit(function(){
-					//1.发送数据到服务器
-					if(checkUsername() && checkPassword() && checkEmail()){
-					    //校验通过,发送ajax请求，提交表单的数据   username=zhangsan&password=123
+			/**
+			 * 密码的校验
+			 */
+			function checkPassword(){
+				//获取密码
+				var password = $("#password");
+				
+				//定义正则表达式
+				var check_password = /\w{6,18}/;
+				
+				//校验是否符合规则
+				var flag = check_password.test(password.val());
+				checkFlag(password,flag);
+				return flag;
 
-						$.post("registUserServlet",$(this).serialize(),function(data){
-							//处理服务器响应的数据  data  {flag:true,errorMsg:"注册失败"}
+			}
 
-							if(data.flag){
-							    //注册成功，跳转成功页面
-								location.href="register_ok.html";
-							}else{
-							    //注册失败,给errorMsg添加提示信息
-								$("#errorMsg").html(data.errorMsg);
+			/**
+			 * email的校验
+			 * @returns {boolean}
+			 */
+			function checkEmail() {
+				//获取Email
+				var email = $("#email");
 
-							}
-						});
+				//定义正则表达式
+				var check_email = /^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/;
 
-					}
-					//2.不让页面跳转
-                    return false;
-                    //如果这个方法没有返回值，或者返回为true，则表单提交，如果返回为false，则表单不提交
-				});
+				//判断是否符合电子邮件规范
+				var flag = check_email.test(email.val());
+				checkFlag(email,flag);
+				return flag;
+			}
 
-                //当某一个组件失去焦点是，调用对应的校验方法
-				$("#username").blur(checkUsername);
-                $("#password").blur(checkPassword);
-                $("#email").blur(checkEmail);
+			function checkName() {
+				var name = $("#name");
+
+				var flag = (name!=null);
+
+				alert(flag);
+			}
 
 
-            });
-
-
+			/**
+			 * 元素边框的改变
+			 * @param input
+			 * @param flag
+			 */
+			function checkFlag(input ,flag) {
+				if (flag){
+					//成功
+					input.css("border","");
+				}else {
+					//失败
+					input.css("border","1px solid red");
+				}
+			}
 		</script>
 
 
@@ -211,7 +202,7 @@
     							<td class="td_left"> 
     							</td>
     							<td class="td_right check"> 
-    								<input type="submit" class="submit" value="注册">
+    								<input type="submit" class="submit" style="background: #eb9316" value="注册">
 									<span id="msg" style="color: red;"></span>
     							</td>
     						</tr>

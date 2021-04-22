@@ -31,8 +31,8 @@ public class Test {
     @org.junit.jupiter.api.Test
     public void testUserServiceLogin(){
         UserService us = new UserServiceImpl();
-        boolean loginFlag = us.loginUser("1260839205", "aguo12345");
-        if (loginFlag){
+        User loginFlag = us.loginUser("1260839205", "aguo12345");
+        if (loginFlag != null){
             System.out.println("登陆成功。。。。");
         }else{
             System.out.println("登陆失败，账号或密码错误。。。。");
