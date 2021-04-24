@@ -10,4 +10,6 @@ import com.aguo.tourism.domain.User;
 public interface UserService {
 
     public User loginUser(String username, String password);
+
+    public boolean userAdd(User user);
 }

@@ -24,13 +24,21 @@
 			 */
 			$(function () {
 				$("#registerForm").submit(function () {
-					return checkUsername() && checkPassword() && checkEmail() && checkName();
+					if (checkUsername() && checkPassword() && checkEmail() && checkName() && checkTelePhone() && checkBirthday() && checkCode()){
+						$.post("/aguo/registerServlet",$(this).serialize(),function (data) {
+
+						});
+					}
+					return false;
 				});
 
 				$("#username").blur(checkUsername);
 				$("#password").blur(checkPassword);
 				$("#email").blur(checkEmail);
 				$("#name").blur(checkName);
+				$("#telephone").blur(checkTelePhone);
+				$("#birthday").blur(checkBirthday);
+				$("#check").blur(checkCode);
 			});
 			/**
 			 * 用户名的校验
@@ -85,11 +93,61 @@
 			function checkName() {
 				var name = $("#name");
 
-				var flag = (name!=null);
+				var check_name = /\s/;
 
-				alert(flag);
+				//判断长度是否为0
+				var flag = (name.val().length != 0);
+
+				//判断姓名中是否包含空格，包含则不允许通过
+				if (check_name.test(name.val())){
+					flag = false;
+				}
+				checkFlag(name,flag);
+				return flag;
 			}
 
+			/**
+			 * 手机号的校验 
+			 */
+			function checkTelePhone() {
+				var telephone = $("#telephone");
+
+				//校验手机号的正则表达式
+				var check_telephone = /^1[3-9]\d{9}$/;
+
+				var flag = check_telephone.test(telephone.val());
+
+				checkFlag(telephone,flag);
+
+				return flag;
+			}
+
+			/**
+			 * 出生日期的校验
+			 */
+			function checkBirthday() {
+				var birthday = $("#birthday");
+
+				var length = birthday.val().length;
+
+				var flag = length > 0;
+
+				checkFlag(birthday,flag);
+				return flag;
+			}
+
+			/**
+			 * 验证码的校验
+			 */
+			function checkCode() {
+				var check = $("#check");
+
+				var flag = check.val().length > 0;
+
+				checkFlag(check,flag);
+
+				return flag;
+			}
 
 			/**
 			 * 元素边框的改变
@@ -122,7 +180,7 @@
     			<div class="rg_form_center">
 					<div id="errorMsg" style="color:red;text-align: center"></div>
 					<!--注册表单-->
-    				<form id="registerForm" action="user">
+    				<form id="registerForm" action="user" method="post">
 						<!--提交处理请求的标识符-->
 						<input type="hidden" name="action" value="register">
     					<table style="margin-top: 25px;">
@@ -189,11 +247,11 @@
     							</td>
     							<td class="td_right check">
     								<input type="text" id="check" name="check" class="check">
-    								<img src="checkCode" height="32px" alt="" onclick="changeCheckCode(this)">
+    								<img src="/aguo/checkCodeServlet" height="32px" alt="" onclick="changeCheckCode(this)">
 									<script type="text/javascript">
 										//图片点击事件
 										function changeCheckCode(img) {
-											img.src="checkCode?"+new Date().getTime();
+											img.src="/aguo/checkCodeServlet?"+new Date().getTime();
                                         }
 									</script>
     							</td>
@@ -203,7 +261,7 @@
     							</td>
     							<td class="td_right check"> 
     								<input type="submit" class="submit" style="background: #eb9316" value="注册">
-									<span id="msg" style="color: red;"></span>
+									<span id="msg"></span>
     							</td>
     						</tr>
     					</table>

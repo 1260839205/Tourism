@@ -1,5 +1,7 @@
 package com.aguo.tourism.domain;
 
+import java.util.Date;
+
 /**
  * @Author Code Fruit
  * @Email 1260839205@qq.com
@@ -17,6 +19,9 @@ public class User {
     private String status;
     private String code;
 
+    public User() {
+    }
+
     public User(int uid, String username, String password, String name, String birthday, String sex, String telephone, String email, String status, String code) {
         this.uid = uid;
         this.username = username;
@@ -28,9 +33,6 @@ public class User {
         this.email = email;
         this.status = status;
         this.code = code;
-    }
-
-    public User() {
     }
 
     public int getUid() {

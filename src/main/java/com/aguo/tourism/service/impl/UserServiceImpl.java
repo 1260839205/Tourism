@@ -18,4 +18,9 @@ public class UserServiceImpl implements UserService {
         User user = ud.loginUser(username, password);
         return user;
     }
+
+    @Override
+    public boolean userAdd(User user) {
+        return ud.userAdd(user);
+    }
 }

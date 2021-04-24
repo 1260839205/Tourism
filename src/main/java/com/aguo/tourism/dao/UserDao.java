@@ -16,4 +16,6 @@ public interface UserDao {
      * @return
      */
     public User loginUser(String username,String password);
+
+    public boolean userAdd(User user);
 }
