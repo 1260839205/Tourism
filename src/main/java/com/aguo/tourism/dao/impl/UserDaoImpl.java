@@ -4,6 +4,7 @@ import com.aguo.tourism.dao.UserDao;
 import com.aguo.tourism.domain.User;
 import com.aguo.tourism.utils.JdbcUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.IncorrectResultSetColumnCountException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -38,16 +39,42 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
+    /**
+     * 注册账号
+     * @param user
+     * @return
+     */
     @Override
     public boolean userAdd(User user) {
-        String sql = "insert into tab_user values (null,?,?,?,?,?,?,?,'a','a')";
+        String sql = "insert into tab_user values (null,?,?,?,?,?,?,?,'c','c')";
 
-        System.out.println(user);
-        int update = template.update(sql, user.getUsername(), user.getPassword(), user.getEmail(),
-                user.getName(), user.getTelephone(), user.getSex(), user.getBirthday());
+
+        int update = template.update(sql, user.getUsername(), user.getPassword(), user.getName(),
+                user.getBirthday(), user.getSex() ,user.getTelephone(), user.getEmail());
+
         if (update > 0){
+            System.out.println(user);
             return true;
         }
         return false;
+    }
+
+    /**
+     * 验证用户名库中是否存在
+     * @param username
+     * @return
+     */
+    @Override
+    public boolean userNameCheck(String username) {
+        String sql = "select * from tab_user where username = ? ";
+        try{
+            User user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), username);
+            return false;
+        }catch (IncorrectResultSetColumnCountException e){
+            e.printStackTrace();
+        }catch (EmptyResultDataAccessException e){
+            e.printStackTrace();
+        }
+        return true;
     }
 }

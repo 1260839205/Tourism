@@ -18,4 +18,6 @@ public interface UserDao {
     public User loginUser(String username,String password);
 
     public boolean userAdd(User user);
+
+    public boolean userNameCheck(String username);
 }

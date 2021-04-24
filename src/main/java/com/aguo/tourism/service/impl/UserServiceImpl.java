@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean userAdd(User user) {
-        return ud.userAdd(user);
+        boolean flag = false;
+        flag = ud.userNameCheck(user.getUsername());
+        if (flag){
+            flag = ud.userAdd(user);
+        }
+        return flag;
     }
 }

@@ -26,7 +26,12 @@
 				$("#registerForm").submit(function () {
 					if (checkUsername() && checkPassword() && checkEmail() && checkName() && checkTelePhone() && checkBirthday() && checkCode()){
 						$.post("/aguo/registerServlet",$(this).serialize(),function (data) {
-
+							if(data.flag){
+								location.href = "login.html";
+							}else {
+								$("#check_img").prop("src","/aguo/checkCodeServlet?"+new Date().getTime());
+								$("#msg").html(data.errorMsg).css({"color":"red","font-size":"5px"});
+							}
 						});
 					}
 					return false;
@@ -247,7 +252,7 @@
     							</td>
     							<td class="td_right check">
     								<input type="text" id="check" name="check" class="check">
-    								<img src="/aguo/checkCodeServlet" height="32px" alt="" onclick="changeCheckCode(this)">
+    								<img src="/aguo/checkCodeServlet" height="32px" id="check_img" alt="" onclick="changeCheckCode(this)">
 									<script type="text/javascript">
 										//图片点击事件
 										function changeCheckCode(img) {
@@ -259,7 +264,7 @@
     						<tr>
     							<td class="td_left"> 
     							</td>
-    							<td class="td_right check"> 
+    							<td class="td_right check">
     								<input type="submit" class="submit" style="background: #eb9316" value="注册">
 									<span id="msg"></span>
     							</td>

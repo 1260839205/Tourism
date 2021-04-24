@@ -38,4 +38,25 @@ public class Test {
             System.out.println("登陆失败，账号或密码错误。。。。");
         }
     }
+
+    /**
+     * 注册功能的测试
+     */
+    @org.junit.jupiter.api.Test
+    public void testRegister(){
+        User user = new User(0,"2801397389","2801397389","张三","2021-4-30","男","13409688162","2801397389@qq.com","a","a");
+        UserDaoImpl ud = new UserDaoImpl();
+        boolean a = ud.userAdd(user);
+        System.out.println(a);
+    }
+
+    /**
+     * 用户名校验
+     */
+    @org.junit.jupiter.api.Test
+    public void testUsername() {
+        UserDao ud = new UserDaoImpl();
+        boolean flag = ud.userNameCheck("12606839205");
+        System.out.println(flag);
+    }
 }
