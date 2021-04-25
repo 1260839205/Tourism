@@ -27,7 +27,7 @@
 					if (checkUsername() && checkPassword() && checkEmail() && checkName() && checkTelePhone() && checkBirthday() && checkCode()){
 						$.post("/aguo/registerServlet",$(this).serialize(),function (data) {
 							if(data.flag){
-								location.href = "login.html";
+								location.href = "register_ok.html";
 							}else {
 								$("#check_img").prop("src","/aguo/checkCodeServlet?"+new Date().getTime());
 								$("#msg").html(data.errorMsg).css({"color":"red","font-size":"5px"});
@@ -201,9 +201,9 @@
     							<td class="td_left">
     								<label for="password">密码</label>
     							</td>
-    							<td class="td_right">
-    								<input type="password" id="password" name="password" placeholder="请输入密码">
-    							</td>
+								<td class="td_right">
+									<input type="password" id="password" name="password" placeholder="请输入密码">
+								</td>
     						</tr>
     						<tr>
     							<td class="td_left">
@@ -275,7 +275,7 @@
     			<div class="rg_form_right">
     				<p>
     					已有账号？
-    					<a href="#">立即登录</a>
+    					<a href="login.html">立即登录</a>
     				</p>
     			</div>
     		</div>
