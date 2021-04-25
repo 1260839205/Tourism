@@ -77,4 +77,30 @@ public class UserDaoImpl implements UserDao {
         }
         return true;
     }
+
+    /**
+     * 验证激活码
+     * @param code
+     * @return
+     */
+    @Override
+    public boolean checkCode(String code) {
+        User user = null;
+        try {
+            //定义sql
+            String sql = "select * from tab_user where code = ? ";
+            //调用方法查询
+            user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), code);
+        }catch (IncorrectResultSetColumnCountException e){
+            e.printStackTrace();
+        }catch (EmptyResultDataAccessException e){
+            e.printStackTrace();
+        }
+        return (user != null);
+    }
+
+    @Override
+    public boolean updateStatus() {
+        return false;
+    }
 }

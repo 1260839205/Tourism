@@ -17,7 +17,21 @@ public interface UserDao {
      */
     public User loginUser(String username,String password);
 
+    /**
+     * 注册账号
+     * @param user
+     * @return
+     */
     public boolean userAdd(User user);
 
+    /**
+     * 验证用户名库中是否存在
+     * @param username
+     * @return
+     */
     public boolean userNameCheck(String username);
+
+    boolean checkCode(String code);
+
+    boolean updateStatus();
 }

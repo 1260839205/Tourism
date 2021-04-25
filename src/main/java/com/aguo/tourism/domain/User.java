@@ -16,8 +16,8 @@ public class User {
     private String sex; //性别
     private String telephone; //联系电话
     private String email; //邮箱地址
-    private String status;
-    private String code;
+    private String status;  //状态码
+    private String code; //激活码 -->唯一的
 
     public User() {
     }
