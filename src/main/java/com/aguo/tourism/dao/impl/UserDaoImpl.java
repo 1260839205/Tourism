@@ -69,7 +69,7 @@ public class UserDaoImpl implements UserDao {
         String sql = "select * from tab_user where username = ? ";
         try{
             User user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), username);
-            return false;
+            return !(user != null);
         }catch (IncorrectResultSetColumnCountException e){
             e.printStackTrace();
         }catch (EmptyResultDataAccessException e){

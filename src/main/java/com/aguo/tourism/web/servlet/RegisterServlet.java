@@ -45,7 +45,7 @@ public class RegisterServlet extends HttpServlet {
         System.out.println(request.getParameter("check"));
         response.setContentType("application/json;charset=utf-8");
         //首先判断验证码是否正确，若不正确则不允许通过
-        if (checkCode.equalsIgnoreCase(request.getParameter("check"))){
+        if (checkCode != null && checkCode.equalsIgnoreCase(request.getParameter("check"))){
             User user = new User();
 
             try {
