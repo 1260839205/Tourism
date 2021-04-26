@@ -46,14 +46,13 @@ public class UserDaoImpl implements UserDao {
      */
     @Override
     public boolean userAdd(User user) {
-        String sql = "insert into tab_user values (null,?,?,?,?,?,?,?,'c','c')";
+        String sql = "insert into tab_user values (null,?,?,?,?,?,?,?,?,?)";
 
 
         int update = template.update(sql, user.getUsername(), user.getPassword(), user.getName(),
-                user.getBirthday(), user.getSex() ,user.getTelephone(), user.getEmail());
+                user.getBirthday(), user.getSex() ,user.getTelephone(), user.getEmail(),user.getStatus(),user.getCode());
 
         if (update > 0){
-            System.out.println(user);
             return true;
         }
         return false;
@@ -100,7 +99,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updateStatus() {
+    public boolean updateStatus(String code) {
+        String sql = "update tab_user set status = 'Y' where code = ? ";
+        int update = template.update(sql, code);
+        if (update > 0 ){
+            return true;
+        }
         return false;
     }
 }

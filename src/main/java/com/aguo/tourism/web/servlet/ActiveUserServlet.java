@@ -15,14 +15,17 @@ import java.io.IOException;
  * @Email 1260839205@qq.com
  * @Date 2021/4/25 下午8:10
  */
-@WebServlet(name = "ActiveUserServlet")
+@WebServlet("/activeUserServlet")
 public class ActiveUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         //设置接收参数的编码
         request.setCharacterEncoding("utf-8");
 
         //获取用户激活的uuid
         String code = request.getParameter("code");
+
+        String msg = null;
 
         //首先判断code是否为空
         if (code != null){
@@ -30,14 +33,16 @@ public class ActiveUserServlet extends HttpServlet {
             UserService us = new UserServiceImpl();
             boolean flag = us.active(code);
             if (flag){
-                response.getWriter().write("恭喜您激活成功！请<a href='login.html'>登陆</a>");
+                msg = "恭喜您激活成功！请<a href='login.html'>登陆</a>";
             }else {
-                response.getWriter().write("很抱歉激活失败，请联系管理员！");
+                msg = "很抱歉激活失败，请联系管理员！";
             }
         }else {
             //code 不存在
-            request.getRequestDispatcher("index.html");
+            response.sendRedirect(request.getContextPath()+"/index.html");
         }
+//        response.setContentType("text/html;charset=utf-8");
+        response.getWriter().write(msg);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

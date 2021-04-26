@@ -14,4 +14,6 @@ public interface UserService {
     public boolean userAdd(User user);
 
     boolean active(String code);
+
+    public void checkEmail(User user);
 }

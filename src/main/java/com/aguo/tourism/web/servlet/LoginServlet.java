@@ -24,10 +24,10 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //设置接收参数的编码
         request.setCharacterEncoding("utf-8");
-        UserService us;
+        UserService us = null;
         Map<String,Object> map = new HashMap<String,Object>();
         ObjectMapper om = new ObjectMapper();
-        User user;
+        User user = null;
         boolean flag = false , err = false , login = true;
 
         //获取用户登陆的账号密码以及验证码
@@ -57,8 +57,12 @@ public class LoginServlet extends HttpServlet {
             map.put("errorMsg","验证码输入错误！");
         }else if (login){
             map.put("errorMsg","账号或密码错误！");
+        }else if (!(user.getStatus().equals("Y"))){
+            us.checkEmail(user);
+            map.put("errorMsg","您尚未激活，已发送邮件到您的邮箱，请及时激活");
         }else {
             flag = true;
+            request.getSession().setAttribute("user",user);
         }
         map.put("flag",flag);
         om.writeValue(response.getWriter(),map);

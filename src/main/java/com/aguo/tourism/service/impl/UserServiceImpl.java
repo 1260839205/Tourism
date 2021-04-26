@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
             user.setCode(uuid);
 
             //给用户发激活邮件
-            String code = "<a href='http://localhost:8080/aguo/activeUserServlet?uuid='"+uuid+">黑马旅游网邮箱激活<\\a>";
+            String code = "<a href=http://localhost:8080/aguo/activeUserServlet?code="+uuid+">黑马旅游网邮箱激活</a>";
 
             MailUtils.sendMail(user.getEmail(),code,"黑马旅游网邮箱激活");
             flag = ud.userAdd(user);
@@ -48,9 +48,20 @@ public class UserServiceImpl implements UserService {
         boolean flag = ud.checkCode(code);
         if (flag){
             //确实存在激活码
-            flag = ud.updateStatus();
+            flag = ud.updateStatus(code);
             return flag;
         }
         return false;
+    }
+
+    @Override
+    public void checkEmail(User user) {
+        boolean flag = ud.checkCode(user.getCode());
+        if (flag){
+            //给用户发激活邮件
+            String code = "<a href=http://localhost:8080/aguo/activeUserServlet?code="+user.getCode()+">黑马旅游网邮箱激活</a>";
+
+            MailUtils.sendMail(user.getEmail(),code,"黑马旅游网邮箱激活");
+        }
     }
 }

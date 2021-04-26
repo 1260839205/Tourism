@@ -5,6 +5,8 @@ import com.aguo.tourism.dao.impl.UserDaoImpl;
 import com.aguo.tourism.domain.User;
 import com.aguo.tourism.service.UserService;
 import com.aguo.tourism.service.impl.UserServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @Author Code Fruit
@@ -21,7 +23,14 @@ public class Test {
     public void testJdbcUtils(){
         UserDao ud = new UserDaoImpl();
         User user = ud.loginUser("1260839205", "aguo123456");
-        System.out.println(user);
+        ObjectMapper om = new ObjectMapper();
+        String user_json = null;
+        try {
+            user_json = om.writeValueAsString(user);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(user_json);
     }
 
     /**
@@ -58,5 +67,10 @@ public class Test {
         UserDao ud = new UserDaoImpl();
         boolean flag = ud.userNameCheck("12606839205");
         System.out.println(flag);
+    }
+
+    @org.junit.jupiter.api.Test
+    public void test(){
+        System.out.println("\\");
     }
 }

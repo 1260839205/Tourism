@@ -11,7 +11,7 @@ import java.io.IOException;
  * @Email 1260839205@qq.com
  * @Date 2021/4/25 下午4:19
  */
-@WebFilter(filterName = "CharGarbledFilter")
+@WebFilter("/*")
 public class CharGarbledFilter implements Filter {
     public void destroy() {
     }
@@ -25,7 +25,7 @@ public class CharGarbledFilter implements Filter {
         request.setCharacterEncoding("utf-8");
 
         //将一切响应的编码格式也都设置为UTF-8
-        response.setCharacterEncoding("text/html;charset=utf-8");
+        response.setContentType("text/html;charset=utf-8");
         chain.doFilter(req, resp);
     }
 

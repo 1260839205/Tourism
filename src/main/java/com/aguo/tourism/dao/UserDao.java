@@ -33,5 +33,5 @@ public interface UserDao {
 
     boolean checkCode(String code);
 
-    boolean updateStatus();
+    boolean updateStatus(String code);
 }
