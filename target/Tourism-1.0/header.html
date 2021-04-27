@@ -1,16 +1,21 @@
 <!-- 头部 start -->
-<!--<script>
+<script>
     $(function () {
        $.get("findUserServlet",{},function (data) {
            //{uid:1,name:'李四'}
-           if (false){
-               var msg = "欢迎回来，"+data.name;
+           if (data.name != undefined) {
+               var msg = "欢迎回来，" + data.name;
                $("#span_username").html(msg);
+               $(".login_out").hide();
+               $(".login").show();
+           }else {
+               $(".login").hide()
+               $(".login_out").show();
            }
        }); 
     });
 
-</script>-->
+</script>
 
 <header id="header">
         <div class="top_banner">
@@ -24,8 +29,7 @@
             </div>
             <!-- 登录状态  -->
             <div class="login">
-            	
-                <span id="span_username"></span>
+                <span id="span_username">aaa</span>
                 <a href="myfavorite.html" class="collection">我的收藏</a>
                 <a href="javascript:location.href='exitServlet';">退出</a>
             </div>
