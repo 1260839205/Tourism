@@ -1,7 +1,7 @@
 <!-- 头部 start -->
 <script>
     $(function () {
-       $.get("findUserServlet",{},function (data) {
+       $.get("/aguo/user/find",{},function (data) {
            //{uid:1,name:'李四'}
            if (data.name != undefined) {
                var msg = "欢迎回来，" + data.name;

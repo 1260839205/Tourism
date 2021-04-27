@@ -25,7 +25,7 @@
 			$(function () {
 				$("#registerForm").submit(function () {
 					if (checkUsername() && checkPassword() && checkEmail() && checkName() && checkTelePhone() && checkBirthday() && checkCode()){
-						$.post("/aguo/registerServlet",$(this).serialize(),function (data) {
+						$.post("/aguo/user/register",$(this).serialize(),function (data) {
 							if(data.flag){
 								location.href = "register_ok.html";
 							}else {

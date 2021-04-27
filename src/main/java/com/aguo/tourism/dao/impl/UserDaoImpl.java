@@ -98,6 +98,12 @@ public class UserDaoImpl implements UserDao {
         return (user != null);
     }
 
+
+    /**
+     * 激活用户
+     * @param code
+     * @return
+     */
     @Override
     public boolean updateStatus(String code) {
         String sql = "update tab_user set status = 'Y' where code = ? ";

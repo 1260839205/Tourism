@@ -1,12 +1,17 @@
 package com.aguo.test;
 
+import com.aguo.tourism.dao.CategoryDao;
 import com.aguo.tourism.dao.UserDao;
+import com.aguo.tourism.dao.impl.CategoryDaoImpl;
 import com.aguo.tourism.dao.impl.UserDaoImpl;
+import com.aguo.tourism.domain.Category;
 import com.aguo.tourism.domain.User;
 import com.aguo.tourism.service.UserService;
 import com.aguo.tourism.service.impl.UserServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 /**
  * @Author Code Fruit
@@ -72,5 +77,15 @@ public class Test {
     @org.junit.jupiter.api.Test
     public void test(){
         System.out.println("\\");
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testCategorys(){
+        CategoryDao cd = new CategoryDaoImpl();
+
+        List<Category> categorys = cd.getCategory();
+        for (Category category : categorys) {
+            System.out.println(category.getCname());
+        }
     }
 }
