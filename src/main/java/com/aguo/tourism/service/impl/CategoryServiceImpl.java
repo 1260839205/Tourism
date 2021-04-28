@@ -28,9 +28,6 @@ public class CategoryServiceImpl implements CategoryService {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
-            System.out.println("我执行了");
-        }else {
-            System.out.println("我没执行了");
         }
         return jedis.get("category");
     }

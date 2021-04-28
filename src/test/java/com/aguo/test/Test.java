@@ -1,8 +1,10 @@
 package com.aguo.test;
 
 import com.aguo.tourism.dao.CategoryDao;
+import com.aguo.tourism.dao.RouteDao;
 import com.aguo.tourism.dao.UserDao;
 import com.aguo.tourism.dao.impl.CategoryDaoImpl;
+import com.aguo.tourism.dao.impl.RouteDaoImpl;
 import com.aguo.tourism.dao.impl.UserDaoImpl;
 import com.aguo.tourism.domain.Category;
 import com.aguo.tourism.domain.User;
@@ -99,5 +101,12 @@ public class Test {
         }
         Jedis jedis = JedisUtils.getJedisPool();
         jedis.set("category",str);
+    }
+
+    @org.junit.jupiter.api.Test
+    public void testRoute(){
+        RouteDao rd = new RouteDaoImpl();
+        int count = rd.getCount(5);
+        System.out.println(count);
     }
 }
