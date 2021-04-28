@@ -20,7 +20,7 @@ public class CategoryDaoImpl implements CategoryDao {
     @Override
     public List<Category> getCategory() {
         //编写sql语句
-        String sql = "select * from tab_category ";
+        String sql = "select * from tab_category order by cid DESC ";
 
         //执行sql语句
         List<Category> category = template.query(sql, new BeanPropertyRowMapper<Category>(Category.class));

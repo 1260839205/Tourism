@@ -25,10 +25,10 @@ public class CategoryServlet extends BaseServlet {
         CategoryService cs = new CategoryServiceImpl();
 
         //调用方法查询导航栏的信息
-        List<Category> categorys = cs.getCategory();
+        String categorys = cs.getCategory();
 
-        ObjectMapper om = new ObjectMapper();
+
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(om.writeValueAsString(categorys));
+        response.getWriter().write(categorys);
     }
 }

@@ -14,7 +14,9 @@
            }
        });
        $.get("/aguo/category/findNavigation",{},function (data) {
-
+           for (var i = 0; i < data.length; i++) {
+               $(".nav-active").after("<li><a href=\"route_list.html\" id='"+data[i].cid+"'>"+data[i].cname+"</a></li>");
+           }
        })
     });
 
@@ -62,10 +64,7 @@
      <!-- 首页导航 -->
     <div class="navitem">
         <ul class="nav">
-            <li class="nav-active"><a href="index.html">首页</a></li>
-            <div>
-                <li><a href="route_list.html">门票</a></li>
-            </div>
+            <li class="nav-active"><a href="index.html" >首页</a></li>
             <li><a href="favoriterank.html">收藏排行榜</a></li>
         </ul>
     </div>

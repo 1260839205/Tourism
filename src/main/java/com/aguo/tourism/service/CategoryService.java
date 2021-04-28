@@ -10,5 +10,5 @@ import java.util.List;
  * @Date 2021/4/28 上午9:59
  */
 public interface CategoryService {
-    public List<Category> getCategory();
+    public String getCategory();
 }

@@ -4,6 +4,10 @@ import com.aguo.tourism.dao.CategoryDao;
 import com.aguo.tourism.dao.impl.CategoryDaoImpl;
 import com.aguo.tourism.domain.Category;
 import com.aguo.tourism.service.CategoryService;
+import com.aguo.tourism.utils.JedisUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 
@@ -14,8 +18,20 @@ import java.util.List;
  */
 public class CategoryServiceImpl implements CategoryService {
     private CategoryDao cd = new CategoryDaoImpl();
+    Jedis jedis = JedisUtils.getJedisPool();
     @Override
-    public List<Category> getCategory() {
-        return cd.getCategory();
+    public String getCategory() {
+        if (jedis.get("category") == null){
+            ObjectMapper om = new ObjectMapper();
+            try {
+                jedis.set("category",om.writeValueAsString(cd.getCategory()));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            System.out.println("我执行了");
+        }else {
+            System.out.println("我没执行了");
+        }
+        return jedis.get("category");
     }
 }

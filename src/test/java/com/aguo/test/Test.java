@@ -8,8 +8,10 @@ import com.aguo.tourism.domain.Category;
 import com.aguo.tourism.domain.User;
 import com.aguo.tourism.service.UserService;
 import com.aguo.tourism.service.impl.UserServiceImpl;
+import com.aguo.tourism.utils.JedisUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 
@@ -88,11 +90,14 @@ public class Test {
             System.out.println(category.getCname());
         }
         ObjectMapper om = new ObjectMapper();
+        String str = null;
         try {
-            String str = om.writeValueAsString(categorys);
+            str = om.writeValueAsString(categorys);
             System.out.println(str);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        Jedis jedis = JedisUtils.getJedisPool();
+        jedis.set("category",str);
     }
 }
