@@ -3,13 +3,12 @@ package com.aguo.tourism.web.servlet.userservlet;
 import com.aguo.tourism.domain.User;
 import com.aguo.tourism.service.UserService;
 import com.aguo.tourism.service.impl.UserServiceImpl;
-import com.aguo.tourism.web.servlet.UserBaseServlet;
+import com.aguo.tourism.web.servlet.BaseServlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,7 +22,7 @@ import java.util.Map;
  * @Date 2021/4/27 下午7:42
  */
 @WebServlet("/user/*")
-public class UserServlet extends UserBaseServlet {
+public class UserServlet extends BaseServlet {
     public void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //设置接收编码的格式
         request.setCharacterEncoding("utf-8");

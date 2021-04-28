@@ -87,5 +87,12 @@ public class Test {
         for (Category category : categorys) {
             System.out.println(category.getCname());
         }
+        ObjectMapper om = new ObjectMapper();
+        try {
+            String str = om.writeValueAsString(categorys);
+            System.out.println(str);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
  * @Date 2021/4/27 下午7:40
  */
 
-public class UserBaseServlet extends HttpServlet {
+public class BaseServlet extends HttpServlet {
 
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //获取请求路径
